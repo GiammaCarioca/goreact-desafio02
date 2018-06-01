@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const Repository = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 20px 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 20px;
   width: 260px;
   height: 45px;
   align-self: center;

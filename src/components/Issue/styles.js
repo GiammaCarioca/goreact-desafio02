@@ -1,43 +1,39 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  display: flex;
-  width: 280px;
-  height: 114px;
-  background: #fff;
-  border-radius: 3px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-`;
-
-export const Repo = styled.div`
+export const Card = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  div {
-    display: flex;
-    flex-direction: column;
-  }
+  justify-content: center;
+  width: 340px;
+  height: 114px;
+  margin: 10px;
+  background: #fff;
+  border-radius: 3px;
 
   img {
     width: 64px;
     height: 64px;
-    margin: 0px 20px 0px 20px;
+    margin: 20px 20px 30px 20px;
     border-radius: 50%;
   }
+`;
+
+export const Head = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 74px;
 
   strong {
     font-weight: bold;
     font-size: 16px;
     color: #333;
     font-family: Helvetica, sans-serif;
-
-    width: 160px;
+    width: 220px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    }
   }
 
   small {

@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const Sidebar = styled.div``;
 
-export const Search = styled.form`
+export const Search = styled.div`
   grid-area: search;
   background: #b286d1;
 `;
@@ -66,14 +66,13 @@ export const RepoView = styled.div`
   background: #fff;
 `;
 
-export const Board = styled.ul`
+export const IssuesView = styled.div``;
+
+export const Board = styled.div`
   grid-area: main;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
-
+  justify-content: center;
   background: #f5f5f5;
-  list-style: none;
-  padding-top: 30px;
-  padding-left: 30px;
+  margin: 20px;
 `;

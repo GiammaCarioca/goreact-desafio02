@@ -1,8 +1,8 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 
 import api from '../../services/api';
 
-import { Container, Sidebar, Search, Form, RepoView, Board } from './styles';
+import { Container, Sidebar, Search, Form, RepoView, IssuesView, Board } from './styles';
 
 import Repo from '../../components/Repo';
 import Header from '../../components/Header';
@@ -61,47 +61,23 @@ export default class Main extends Component {
             <Repo repositories={this.state.repositories} />
           </RepoView>
         </Sidebar>
-        <Fragment>
+        <IssuesView>
           <Header />
           <Board>
-            <li>
-              <Issue />
-            </li>
-            <li>
-              <Issue />
-            </li>
-            <li>
-              <Issue />
-            </li>
-            <li>
-              <Issue />
-            </li>
-            <li>
-              <Issue />
-            </li>
-            <li>
-              <Issue />
-            </li>
-            <li>
-              <Issue />
-            </li>
-            <li>
-              <Issue />
-            </li>
-            <li>
-              <Issue />
-            </li>
-            <li>
-              <Issue />
-            </li>
-            <li>
-              <Issue />
-            </li>
-            <li>
-              <Issue />
-            </li>
+            <Issue />
+            <Issue />
+            <Issue />
+            <Issue />
+            <Issue />
+            <Issue />
+            <Issue />
+            <Issue />
+            <Issue />
+            <Issue />
+            <Issue />
+            <Issue />
           </Board>
-        </Fragment>
+        </IssuesView>
       </Container>
     );
   }
