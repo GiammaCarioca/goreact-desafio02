@@ -9,7 +9,7 @@ export const Container = styled.div`
   height: 100px;
   padding: 30px;
 `;
-export const Repo = styled.div`
+export const Repository = styled.div`
   display: flex;
   background: #fff;
   width: 260px;
@@ -56,5 +56,6 @@ export const FilterStatus = styled.select`
   padding: 12px;
   border-radius: 3px;
   cursor: pointer;
-  /* appearance: none; */
 `;
+
+/* appearance: none; */

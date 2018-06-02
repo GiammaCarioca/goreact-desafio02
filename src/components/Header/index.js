@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Container, Repo, FilterStatus } from './styles';
+import { Container, Repository, FilterStatus } from './styles';
 
 const Header = () => (
   <Container>
-    <Repo />
+    <Repository />
     <FilterStatus type="submit">
       <option>Todas</option>
       <option>Abertas</option>
@@ -14,3 +14,12 @@ const Header = () => (
 );
 
 export default Header;
+
+/** RepoView.propTypes = {
+  id: PropTypes.number,
+  name: PropTypes.string,
+  owner: PropTypes.shape({
+    login: PropTypes.string,
+    avatar_url: PropTypes.string,
+  }).isRequired,
+}; */
