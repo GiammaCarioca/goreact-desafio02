@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import api from '../../services/api';
 
 import Issues from '../../components/Issues';
@@ -12,7 +12,7 @@ import {
   Repository,
   Wrapper,
   Header,
-  RepoSelected,
+  RepositorySelected,
   FilterStatus,
   IssuesView,
   IssuesList,
@@ -25,7 +25,8 @@ export default class Main extends Component {
     repositoryInput: '',
     repositoryClicked: false,
     repositorySelected: '',
-    filter: 'all',
+    filter: '',
+    repositoryKey: '',
     repositories: [],
     issues: [],
   };
@@ -48,17 +49,13 @@ export default class Main extends Component {
   handleClick = async (e, repository) => {
     e.preventDefault();
 
-    /**
-     * repo: https://api.github.com/repositories/80149262
-     * todas: https://api.github.com/repos/facebook/react/issues?state=all
-     * open: https://api.github.com/repos/facebook/react/issues?state=open
-     * closed: https://api.github.com/repos/facebook/react/issues?state=closed
-     */
+    this.setState({ filter: 'all' });
 
     try {
-      const response = await api.get(`/repos/${repository.full_name}/issues?state=all`);
+      const response = await api.get(`/repos/${repository.full_name}/issues?state=${this.state.filter}`);
 
       this.setState({
+        repositoryKey: repository.id,
         repositoryClicked: true,
         repositorySelected: repository.full_name,
         issues: response.data,
@@ -85,6 +82,7 @@ export default class Main extends Component {
       this.setState({ repositoryError: true });
     } finally {
       this.setState({ loading: false });
+      this.setState({ filter: 'all' });
     }
   };
 
@@ -111,12 +109,7 @@ export default class Main extends Component {
           </Search>
           <RepoView>
             {this.state.repositories.map(repository => (
-              // início do repository
-              <Repository
-                key={repository.id}
-                // withIssues={repository.has_issues}
-                onClick={e => this.handleClick(e, repository)}
-              >
+              <Repository key={repository.id} onClick={e => this.handleClick(e, repository)}>
                 <Wrapper>
                   <img src={repository.owner.avatar_url} alt={repository.owner.login} />
                   <div>
@@ -128,28 +121,32 @@ export default class Main extends Component {
                   <i className="fa fa-angle-right" />
                 </button>
               </Repository>
-              // fim do repository
             ))}
           </RepoView>
         </Sidebar>
         <IssuesView>
           <Header>
-            {this.state.repositoryClicked && (
-              <RepoSelected>
-                <Wrapper>
-                  <img />
-                  <div>
-                    <strong>{}</strong>
-                    <small>{}</small>
-                  </div>
-                </Wrapper>
-              </RepoSelected>
-            )}
+            <Fragment>
+              {this.state.repositories
+                .filter(repository => repository.id === this.state.repositoryKey)
+                .map(repository => (
+                  <RepositorySelected key={repository.id}>
+                    <Wrapper>
+                      <img src={repository.owner.avatar_url} alt={repository.owner.login} />
+                      <div>
+                        <strong>{repository.name}</strong>
+                        <small>{repository.owner.login}</small>
+                      </div>
+                    </Wrapper>
+                  </RepositorySelected>
+                ))}
+            </Fragment>
+
             {this.state.repositoryClicked && (
               <FilterStatus type="submit" onChange={this.handleFilter}>
                 <option value="all">Todas</option>
                 <option value="open">Abertas</option>
-                <option value="close">Fechadas</option>
+                <option value="closed">Fechadas</option>
               </FilterStatus>
             )}
           </Header>

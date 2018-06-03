@@ -90,7 +90,7 @@ export const Wrapper = styled.div`
   background: #fff;
   width: 253px;
   height: 45px;
-  margin-bottom: 20px;
+  margin-bottom: 2px;
 
   img {
     width: 45px;
@@ -128,37 +128,8 @@ export const Header = styled.div`
   height: 100px;
   padding: 30px;
 `;
-export const RepoSelected = styled.div`
-  display: flex;
-  background: #fff;
-  width: 260px;
-  height: 45px;
-
-  img {
-    width: 45px;
-  }
-
-  div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    margin-left: 10px;
-  }
-
-  strong {
-    font-weight: bold;
-    font-size: 16px;
-    color: #333;
-    font-family: Helvetica, sans-serif;
-  }
-
-  small {
-    font-weight: normal;
-    font-size: 12px;
-    color: #999;
-    font-family: Helvetica, sans-serif;
-  }
+export const RepositorySelected = styled.div`
+  align-self: center;
 `;
 
 export const FilterStatus = styled.select`
@@ -176,8 +147,6 @@ export const FilterStatus = styled.select`
   border-radius: 3px;
   cursor: pointer;
 `;
-
-/* appearance: none; */
 
 export const IssuesView = styled.div``;
 
