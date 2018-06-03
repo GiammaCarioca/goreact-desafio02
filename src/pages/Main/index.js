@@ -1,14 +1,6 @@
-/**
- * repo: https://api.github.com/repositories/80149262
- * todas: https://api.github.com/repos/facebook/react/issues?state=all
- * open: https://api.github.com/repos/facebook/react/issues?state=open
- * closed: https://api.github.com/repos/facebook/react/issues?state=closed
- */
-
 import React, { Component } from 'react';
 import api from '../../services/api';
 
-import Header from '../../components/Header';
 import Issues from '../../components/Issues';
 
 import {
@@ -19,6 +11,9 @@ import {
   RepoView,
   Repository,
   Wrapper,
+  Header,
+  RepoSelected,
+  FilterStatus,
   IssuesView,
   IssuesList,
 } from './styles';
@@ -28,19 +23,44 @@ export default class Main extends Component {
     loading: false,
     repositoryError: false,
     repositoryInput: '',
-    repositories: [],
     repositoryClicked: false,
+    repositorySelected: '',
+    filter: 'all',
+    repositories: [],
     issues: [],
+  };
+
+  handleFilter = async (e) => {
+    this.setState({ filter: e.target.value });
+
+    try {
+      const response = await api.get(`/repos/${this.state.repositorySelected}/issues?state=${this.state.filter}`);
+
+      this.setState({
+        repositoryClicked: true,
+        issues: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   handleClick = async (e, repository) => {
     e.preventDefault();
+
+    /**
+     * repo: https://api.github.com/repositories/80149262
+     * todas: https://api.github.com/repos/facebook/react/issues?state=all
+     * open: https://api.github.com/repos/facebook/react/issues?state=open
+     * closed: https://api.github.com/repos/facebook/react/issues?state=closed
+     */
 
     try {
       const response = await api.get(`/repos/${repository.full_name}/issues?state=all`);
 
       this.setState({
         repositoryClicked: true,
+        repositorySelected: repository.full_name,
         issues: response.data,
       });
     } catch (error) {
@@ -94,7 +114,7 @@ export default class Main extends Component {
               // início do repository
               <Repository
                 key={repository.id}
-                withIssues={repository.has_issues}
+                // withIssues={repository.has_issues}
                 onClick={e => this.handleClick(e, repository)}
               >
                 <Wrapper>
@@ -113,7 +133,26 @@ export default class Main extends Component {
           </RepoView>
         </Sidebar>
         <IssuesView>
-          <Header />
+          <Header>
+            {this.state.repositoryClicked && (
+              <RepoSelected>
+                <Wrapper>
+                  <img />
+                  <div>
+                    <strong>{}</strong>
+                    <small>{}</small>
+                  </div>
+                </Wrapper>
+              </RepoSelected>
+            )}
+            {this.state.repositoryClicked && (
+              <FilterStatus type="submit" onChange={this.handleFilter}>
+                <option value="all">Todas</option>
+                <option value="open">Abertas</option>
+                <option value="close">Fechadas</option>
+              </FilterStatus>
+            )}
+          </Header>
           {this.state.repositoryClicked && (
             <IssuesList>
               <Issues issues={this.state.issues} />

@@ -5,11 +5,9 @@ import { Issue, Head, ExternalLink } from './styles';
 
 const Issues = ({ issues }) => (
   <Fragment>
-    {/** [0, 1, 2... 29] */}
-    {/** issuesList: [[{}, {}, {}, {}]] */}
     {issues.map(issue => (
       <Issue key={issue.id}>
-        <img src={issue.avatar_url} alt={issue.user.login} />
+        <img src={issue.user.avatar_url} alt={issue.user.login} />
         <Head>
           <strong>{issue.title} </strong>
           <small>{issue.user.login}</small>
