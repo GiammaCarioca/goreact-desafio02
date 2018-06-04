@@ -10,6 +10,7 @@ export const Issue = styled.div`
   margin: 10px;
   background: #fff;
   border-radius: 3px;
+  box-shadow: 0 0 0.5px 0 rgba(0, 0, 0, 0.2);
 
   img {
     width: 64px;

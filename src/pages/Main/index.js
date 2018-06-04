@@ -8,6 +8,7 @@ import {
   Sidebar,
   Search,
   Form,
+  LineSeparation,
   RepoView,
   Repository,
   Wrapper,
@@ -100,10 +101,11 @@ export default class Main extends Component {
                 {this.state.loading ? (
                   <i className="fa fa-spinner fa-pulse" />
                 ) : (
-                  <i className="fa fa-angle-right" />
+                  <i className="fa fa-plus-circle" />
                 )}
               </button>
             </Form>
+            <LineSeparation />
           </Search>
           <RepoView>
             {this.state.repositories.map(repository => (

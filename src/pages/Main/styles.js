@@ -35,7 +35,7 @@ export const Form = styled.form`
     background: #eee;
     font-family: Helvetica, sans-serif;
     font-size: 15px;
-    color: #999999;
+    color: #999;
     border-radius: 3px;
 
     border: ${props => (props.withError ? '2px solid #f00' : 0)};
@@ -55,6 +55,14 @@ export const Form = styled.form`
       background: #52d89f;
     }
   }
+`;
+
+export const LineSeparation = styled.hr`
+  border: 0;
+  height: 1px;
+  width: 260px;
+  margin-left: 30px;
+  background: #eee;
 `;
 
 export const RepoView = styled.div`
@@ -127,6 +135,9 @@ export const Header = styled.div`
   width: 100%;
   height: 100px;
   padding: 30px;
+  background: #fff;
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
+  box-shadow: 0 0 0.5px 0 rgba(0, 0, 0, 0.2);
 `;
 
 export const RepositorySelected = styled.div`
