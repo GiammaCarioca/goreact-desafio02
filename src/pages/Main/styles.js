@@ -13,7 +13,7 @@ export const Sidebar = styled.div``;
 
 export const Search = styled.div`
   grid-area: search;
-  background: #b286d1;
+  background: #fff;
 `;
 
 export const Form = styled.form`
@@ -128,6 +128,7 @@ export const Header = styled.div`
   height: 100px;
   padding: 30px;
 `;
+
 export const RepositorySelected = styled.div`
   align-self: center;
 `;

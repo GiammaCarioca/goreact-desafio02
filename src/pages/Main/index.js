@@ -23,22 +23,23 @@ export default class Main extends Component {
     loading: false,
     repositoryError: false,
     repositoryInput: '',
-    repositoryClicked: false,
-    repositorySelected: '',
-    filter: '',
-    repositoryKey: '',
     repositories: [],
+    currentRepoName: '',
+    currentRepoKey: '',
     issues: [],
+    showIssues: false,
+    value: 'all',
   };
 
-  handleFilter = async (e) => {
-    this.setState({ filter: e.target.value });
+  handleSelect = async (e) => {
+    e.preventDefault();
+    await this.setState({ value: e.target.value });
 
     try {
-      const response = await api.get(`/repos/${this.state.repositorySelected}/issues?state=${this.state.filter}`);
+      const response = await api.get(`/repos/${this.state.currentRepoName}/issues?state=${this.state.value}`);
 
       this.setState({
-        repositoryClicked: true,
+        showIssues: true,
         issues: response.data,
       });
     } catch (error) {
@@ -49,15 +50,13 @@ export default class Main extends Component {
   handleClick = async (e, repository) => {
     e.preventDefault();
 
-    this.setState({ filter: 'all' });
-
     try {
-      const response = await api.get(`/repos/${repository.full_name}/issues?state=${this.state.filter}`);
+      const response = await api.get(`/repos/${repository.full_name}/issues?state=${this.state.value}`);
 
       this.setState({
-        repositoryKey: repository.id,
-        repositoryClicked: true,
-        repositorySelected: repository.full_name,
+        currentRepoKey: repository.id,
+        showIssues: true,
+        currentRepoName: repository.full_name,
         issues: response.data,
       });
     } catch (error) {
@@ -82,7 +81,6 @@ export default class Main extends Component {
       this.setState({ repositoryError: true });
     } finally {
       this.setState({ loading: false });
-      this.setState({ filter: 'all' });
     }
   };
 
@@ -128,7 +126,7 @@ export default class Main extends Component {
           <Header>
             <Fragment>
               {this.state.repositories
-                .filter(repository => repository.id === this.state.repositoryKey)
+                .filter(repository => repository.id === this.state.currentRepoKey)
                 .map(repository => (
                   <RepositorySelected key={repository.id}>
                     <Wrapper>
@@ -142,15 +140,15 @@ export default class Main extends Component {
                 ))}
             </Fragment>
 
-            {this.state.repositoryClicked && (
-              <FilterStatus type="submit" onChange={this.handleFilter}>
+            {this.state.showIssues && (
+              <FilterStatus value={this.state.value} onChange={this.handleSelect}>
                 <option value="all">Todas</option>
                 <option value="open">Abertas</option>
                 <option value="closed">Fechadas</option>
               </FilterStatus>
             )}
           </Header>
-          {this.state.repositoryClicked && (
+          {this.state.showIssues && (
             <IssuesList>
               <Issues issues={this.state.issues} />
             </IssuesList>
