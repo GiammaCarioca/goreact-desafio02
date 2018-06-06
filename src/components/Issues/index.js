@@ -24,11 +24,14 @@ const Issues = ({ issues }) => (
 
 export default Issues;
 
-/** RepoView.propTypes = {
-  id: PropTypes.number,
-  name: PropTypes.string,
-  owner: PropTypes.shape({
-    login: PropTypes.string,
-    avatar_url: PropTypes.string,
-  }).isRequired,
-}; */
+Issues.propTypes = {
+  issues: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    html_url: PropTypes.string,
+    user: PropTypes.shape({
+      avatar_url: PropTypes.string,
+      login: PropTypes.string,
+    }).isRequired,
+  })).isRequired,
+};
