@@ -1,22 +1,20 @@
-import React, { Fragment, Component } from 'react';
-import api from '../../services/api';
-
+import React, { Component, Fragment } from 'react';
 import Issues from '../../components/Issues';
-
+import api from '../../services/api';
 import {
   Container,
-  Sidebar,
-  Search,
-  Form,
-  LineSeparation,
-  RepoView,
-  Repository,
-  Wrapper,
-  Header,
-  RepositorySelected,
   FilterStatus,
-  IssuesView,
+  Form,
+  Header,
   IssuesList,
+  IssuesView,
+  LineSeparation,
+  Repository,
+  RepositorySelected,
+  RepoView,
+  Search,
+  Sidebar,
+  Wrapper,
 } from './styles';
 
 export default class Main extends Component {
@@ -51,8 +49,10 @@ export default class Main extends Component {
   handleClick = async (e, repository) => {
     e.preventDefault();
 
+    this.setState({ loading: true });
+
     try {
-      const response = await api.get(`/repos/${repository.full_name}/issues?state=${this.state.value}`);
+      const response = await api.get(`/repos/${repository.full_name}/issues`);
 
       this.setState({
         currentRepoKey: repository.id,
@@ -62,6 +62,8 @@ export default class Main extends Component {
       });
     } catch (error) {
       console.log(error);
+    } finally {
+      this.setState({ loading: false });
     }
   };
 
@@ -150,11 +152,9 @@ export default class Main extends Component {
               </FilterStatus>
             )}
           </Header>
-          {this.state.showIssues && (
-            <IssuesList>
-              <Issues issues={this.state.issues} />
-            </IssuesList>
-          )}
+          <IssuesList>
+            <Issues issues={this.state.issues} />
+          </IssuesList>
         </IssuesView>
       </Container>
     );

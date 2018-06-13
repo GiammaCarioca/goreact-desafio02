@@ -1,8 +1,7 @@
 import React from 'react';
+import Main from './pages/Main';
 
 import './styles/global';
-
-import Main from './pages/Main';
 
 const App = () => <Main />;
 
